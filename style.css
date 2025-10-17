@@ -1,0 +1,281 @@
+/* style.css
+   Multi-page SDG13 site:
+   - Different background per page via body classes
+   - Dark overlay for readability
+   - Hover pop-up effect on .card and .section
+   - Accent color: #3F7E44
+   Place this file in the same folder as the HTML files.
+*/
+
+:root{
+  --accent: #3F7E44;
+  --dark: #071018;
+  --muted: #6b7280;
+  --card-bg: #ffffff;
+  --card-fg: #0b1220;
+  --max-width: 1100px;
+  --gap: 24px;
+  --radius: 12px;
+  --shadow-light: 0 8px 24px rgba(2,6,23,0.15);
+  --shadow-strong: 0 14px 40px rgba(2,6,23,0.22);
+  --sans: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--card-fg);
+  background-color:#071018;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  transition: background-image .35s ease;
+}
+
+/* Page-specific background images (online Unsplash URLs) */
+body.home-page {
+  background-image: url("https://i.natgeofe.com/k/6d6ee5ff-e749-47dd-80c2-ed1158aa259c/climatechange-polarbear_3x2.jpg");
+}
+body.about-page {
+  background-image: url("https://static01.nyt.com/images/2021/08/03/climate/03cli-penguins-1/03cli-penguins-1-superJumbo.jpg"); /* penguins */
+}
+body.targets-page {
+  background-image: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1950&q=80");
+}
+body.action-page {
+  background-image: url("https://www.sciline.org/wp-content/uploads/2021/02/cropped-Wildfires-and-Climate-Change.jpg");
+}
+body.resources-page {
+  background-image: url("https://insideclimatenews.org/wp-content/uploads/2021/09/coal_jon-macdougall-afp-getty-scaled.jpg");
+}
+
+/* Full-page dark overlay for readability */
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(3,6,10,0.50);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Site container stacks above overlay */
+.site-root{
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* NAV and HERO */
+.site-nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 28px;
+  max-width:var(--max-width);
+  margin:0 auto;
+  width:calc(100% - 56px);
+  color:#e9f7f1;
+}
+
+.logo{
+  color:#e9f7f1;
+  font-weight:700;
+  letter-spacing:0.6px;
+  font-size:18px;
+}
+
+.nav-links{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.nav-links a{
+  color:#e9f7f1;
+  text-decoration:none;
+  font-weight:600;
+  padding:8px 12px;
+  border-radius:8px;
+  transition:background .18s ease, transform .18s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus{
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+/* Hero block */
+.header-hero{
+  min-height:62vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:48px 20px;
+  color:#ffffff;
+}
+
+.hero-content{
+  max-width:980px;
+  margin: 0 auto;
+}
+
+.hero-title{
+  font-size: clamp(32px, 5vw, 56px);
+  margin:0 0 12px;
+  font-weight:800;
+  line-height:1.02;
+}
+
+.hero-sub{
+  font-size:18px;
+  color: rgba(230,246,239,0.95);
+  margin:0 auto 20px;
+  max-width:760px;
+}
+
+/* CTA buttons */
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.btn{
+  display:inline-block;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700;cursor:pointer;
+}
+.btn-primary{background:var(--accent);color:#fff;box-shadow: 0 8px 18px rgba(63,126,68,0.18)}
+.btn-ghost{background:transparent;color:#e6f6ef;border:1px solid rgba(255,255,255,0.08)}
+
+/* Main content container */
+.page{
+  max-width:var(--max-width);
+  margin: -48px auto 48px auto;
+  padding:28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:16px;
+  box-shadow:var(--shadow-light);
+  position:relative;
+}
+
+/* Section blocks (white cards) */
+.section{
+  background: #fff;
+  border-radius:12px;
+  padding:28px;
+  margin-bottom:18px;
+  transition: transform .22s ease, box-shadow .22s ease;
+  will-change: transform;
+}
+
+/* Section hover pop-up */
+.section:hover{
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Headings and text */
+.section h2{font-size:22px;margin:0 0 8px 0;color:var(--card-fg)}
+.section p{color:var(--muted);margin:0;font-size:15px}
+
+/* Grid */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:var(--gap);
+  margin-top:18px;
+}
+
+/* Card style and hover pop-up */
+.card{
+  background:var(--card-bg);
+  border-radius:10px;
+  padding:18px;
+  box-shadow: 0 6px 18px rgba(15,23,32,0.06);
+  min-height:120px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  transition: transform .22s ease, box-shadow .22s ease;
+  will-change: transform;
+}
+.card:hover{
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(5,10,20,0.18);
+}
+
+.icon{
+  width:44px;height:44px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;
+  background: linear-gradient(180deg, rgba(63,126,68,0.12), rgba(63,126,68,0.06));
+  color:var(--accent);font-weight:700;
+}
+
+.accent-strip{
+  height:6px;width:100%;border-radius:6px;background: linear-gradient(90deg, var(--accent), rgba(63,126,68,0.65));margin-bottom:18px;
+}
+
+.site-footer{
+  text-align:center;padding:22px;color:#c7d7cf;font-size:14px;margin-top:12px;
+}
+
+/* Responsive rules */
+@media (max-width:980px){ .grid{grid-template-columns: repeat(2,1fr)} }
+@media (max-width:640px){
+  .nav-links{gap:10px}
+  .grid{grid-template-columns:1fr}
+  .page{margin:-36px 16px 28px 16px;padding:18px}
+  .hero-title{font-size:34px}
+  .hero-sub{font-size:16px}
+}
+
+/* Ensure hero content is centered vertically and horizontally on all pages */
+.site-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero section flex centering */
+.header-hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  align-items: center;     /* horizontal centering */
+  text-align: center;
+  min-height: 62vh;
+  padding: 48px 20px;
+  color: #ffffff;
+}
+
+/* Ensure hero content max-width and proper centering */
+.hero-content {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Make all resource buttons readable and attractive */
+.resource-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  margin: 6px;
+  border-radius: 10px;
+  font-weight: 700;
+  color: #fff; /* ensures contrast */
+  background: var(--accent); /* your green accent */
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.resource-btn:hover {
+  background: #5fa057; /* slightly lighter on hover */
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
